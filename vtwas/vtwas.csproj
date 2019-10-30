@@ -118,4 +118,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy $(ProjectDir)Readme.md $(TargetDir)Readme.md</PostBuildEvent>
+  </PropertyGroup>
 </Project>
