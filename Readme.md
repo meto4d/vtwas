@@ -19,7 +19,7 @@ Google翻訳の音声とかを動的に再生するという建前
 
 ## How to use
 
-- DLして解答して実行する [Download](https://github.com/meto4d/vtwas/release)
+- DLして解凍して実行する [Download](https://github.com/meto4d/vtwas/release)
 - APIのあるURLを入力する
 - Token等が必要なら入力する(表示ボタンでどちらも表示されるので注意)
 - パラメータやテキストを入力する
