@@ -358,14 +358,21 @@ namespace vtwas
                 // 置換
                 if(enableReg)
                 {
-                    var m = regex.Match(param_list[index].text);
-                    string tmp = regex.Replace(reText, param_list[index].text);
-
-                    if (param_list[index].text.Contains("\\c"))
+                    var m = regex.Match(reText);
+                    if(m.Success)
                     {
-                        tmp = tmp.Replace("\\c", reText);
+                        string tmp = regex.Replace(reText, param_list[index].text);
 
+                        if (param_list[index].text.Contains("\\c"))
+                        {
+                            tmp = tmp.Replace("\\c", reText);
+
+                        }
                         paramurl += param_list[index].param + "=" + HttpUtility.UrlEncode(tmp, encode);
+                    }
+                    else
+                    {
+                        paramurl += param_list[index].ToUriParam(encode);
                     }
                 }
                 else if (param_list[index].text.Contains("\\c"))
@@ -436,14 +443,16 @@ namespace vtwas
         {
             if (st == null) return -1;
 
-            Task task = Task.Run(() =>
-            {
-                AsyncPlay(st);
-            });
+            isplaying = true;
+            audio.Play(st, Microsoft.VisualBasic.AudioPlayMode.WaitToComplete);
+
+            audio.Stop();
+            isplaying = false;
 
             return 0;
         }
 
+        // 非同期にしたい
         static public int AsyncPlay(Stream st)
         {
 
