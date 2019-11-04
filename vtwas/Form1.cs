@@ -26,6 +26,8 @@ namespace vtwas
             this.Text = this.Name;
             dataGridView.Rows.Add("", "");
             ClipEventCheckBox.Enabled = ClipboardEnableCheckBox.Checked;
+            RegCheckBox.Enabled = ClipboardEnableCheckBox.Checked;
+            RegTextBoxEx.Enabled = ClipboardEnableCheckBox.Checked;
 
             // クリップボード監視イベント
             clipViewer = new ClipboardViewer.MyClipboardViewer(this);
@@ -62,6 +64,8 @@ namespace vtwas
                 CharCodeComboBox.SelectedIndex = 0;
 
             ClipboardEnableCheckBox.Checked = vtwasay.enableclip;
+            RegCheckBox.Checked = vtwasay.enableReg;
+            RegTextBoxEx.Text = vtwasay.regstr;
 
             foreach(var par in vtwasay.param_list)
             {
@@ -80,6 +84,8 @@ namespace vtwas
             vtwasay.pass = TokenPasstextBox.Text;
             vtwasay.charcode = (string)CharCodeComboBox.SelectedItem;
             vtwasay.enableclip = ClipboardEnableCheckBox.Checked;
+            vtwasay.enableReg = RegCheckBox.Checked;
+            vtwasay.regstr = RegTextBoxEx.Text;
             vtwasay.param_list.Clear();
             for(int index = 0; index < dataGridView.Rows.Count; index++)
             {
@@ -158,7 +164,10 @@ namespace vtwas
 
         private void ClipboardEnableCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            ClipEventCheckBox.Enabled = ClipboardEnableCheckBox.Checked;
+            bool check = ClipboardEnableCheckBox.Checked;
+            ClipEventCheckBox.Enabled   = check;
+            RegCheckBox.Enabled         = check;
+            RegTextBoxEx.Enabled        = check;
         }
 
         private void ClipEventCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -189,6 +198,12 @@ namespace vtwas
                 vtwasay.AutoGetPlay(out status, e.Text);
                 this.StatusLabel.Text = status;
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form2 form = new Form2();
+            form.Show();
         }
     }
 }

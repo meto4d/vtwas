@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.IO;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -28,6 +29,7 @@ namespace vtwas
 
         // Formからのオプション
 
+        #region 保存するパラメータ
         public struct FORM
         {
             /// <summary>
@@ -54,6 +56,8 @@ namespace vtwas
         static public string pass;
         static public string charcode;
         static public bool enableclip;
+        static public bool enableReg;
+        static public string regstr;
 
         // パラメータ用構造体
         // HttpUtility.UrlEncodeとUri.EscapeDataStringが混じってキモい感ある
@@ -92,6 +96,8 @@ namespace vtwas
         
         static public List<Params> param_list;
 
+        #endregion
+
         // ベーシック認証関係
         static private SecurityProtocolType sptype = 
             SecurityProtocolType.Tls
@@ -108,12 +114,13 @@ namespace vtwas
         static private string paramUrl;
 
         // 音声データ関係
-        static private byte[] vs;
         static private Audio audio = new Audio();
+        static private bool isplaying = false;
 
         // クリップボード関係
         static private IDataObject clipboardObj;
 
+        // ホントは静的メンバじゃなくて普通のインスタンスを作ってやりたい
         public vtwasay()
         {
 
@@ -154,6 +161,11 @@ namespace vtwas
 
             enableclip = IniFileHandler.GetPrivateProfileInt("Param", "EnableClip", 0, iniFile) != 0 ? true : false;
 
+            enableReg = IniFileHandler.GetPrivateProfileInt("Param", "EnableReg", 0, iniFile) != 0 ? true : false;
+
+            IniFileHandler.GetPrivateProfileString("Param", "RegStr", "", sb, (uint)sb.Capacity, iniFile);
+            regstr = sb.ToString();
+            
             int listCount = (int)IniFileHandler.GetPrivateProfileInt("Param", "ListCount", 0, iniFile);
             param_list = new List<Params>();
             for(int index = 0; index < listCount; index++)
@@ -196,6 +208,11 @@ namespace vtwas
 
             str = enableclip ? "1" : "0";
             IniFileHandler.WritePrivateProfileString("Param", "EnableClip", str, iniFile);
+
+            str = enableReg ? "1" : "0";
+            IniFileHandler.WritePrivateProfileString("Param", "EnableReg", str, iniFile);
+
+            IniFileHandler.WritePrivateProfileString("Param", "RegStr", regstr, iniFile);
 
             int count = 0;
             IniFileHandler.WritePrivateProfileString("Param", "ListCount", count.ToString(), iniFile);
@@ -320,6 +337,14 @@ namespace vtwas
             // 初回パラメータ用
             bool firstParam = true;
 
+            // 正規表現
+            Regex regex = new Regex("");
+
+            if(enableReg)
+            {
+                regex = new Regex(regstr);
+            }
+
             // パラメータ設定
             // なるべく上から処理するようにしたい
             for (int index = 0; index < param_list.Count; index++)
@@ -331,7 +356,19 @@ namespace vtwas
                 if (firstParam) firstParam = !firstParam;
 
                 // 置換
-                if (param_list[index].text.Contains("\\c"))
+                if(enableReg)
+                {
+                    var m = regex.Match(param_list[index].text);
+                    string tmp = regex.Replace(reText, param_list[index].text);
+
+                    if (param_list[index].text.Contains("\\c"))
+                    {
+                        tmp = tmp.Replace("\\c", reText);
+
+                        paramurl += param_list[index].param + "=" + HttpUtility.UrlEncode(tmp, encode);
+                    }
+                }
+                else if (param_list[index].text.Contains("\\c"))
                 {
                     string tmp = param_list[index].text.Replace("\\c", reText);
 
@@ -398,11 +435,26 @@ namespace vtwas
         static public int StreamPlay(Stream st)
         {
             if (st == null) return -1;
+
+            Task task = Task.Run(() =>
+            {
+                AsyncPlay(st);
+            });
+
+            return 0;
+        }
+
+        static public int AsyncPlay(Stream st)
+        {
+
+            isplaying = true;
             audio.Play(st, Microsoft.VisualBasic.AudioPlayMode.WaitToComplete);
 
             audio.Stop();
+            isplaying = false;
 
             return 0;
+
         }
 
         // 蛇足メソッド

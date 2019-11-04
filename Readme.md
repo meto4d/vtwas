@@ -37,7 +37,7 @@ Google翻訳の音声とかを動的に再生するという建前
 
 習作のプロトタイプなので動かないとかは知らない。
 
-詳しくはTwitter@meto4dで聞いてください。
+詳しくは[Twitter@meto4d](https://twitter.com/meto4d)で聞いてください。
 
 建前であってGoogle翻訳の音声には使えない（かも）
 

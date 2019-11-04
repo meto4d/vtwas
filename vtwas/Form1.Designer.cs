@@ -38,6 +38,7 @@
             this.TokenPasstextBox = new System.Windows.Forms.TextBox();
             this.TokenShowCheckBox = new System.Windows.Forms.CheckBox();
             this.TokenShowToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.RegTextBoxEx = new TextBoxEx();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -51,6 +52,9 @@
             this.StatusLabel = new System.Windows.Forms.Label();
             this.SettingSaveButton = new System.Windows.Forms.Button();
             this.ClipEventCheckBox = new System.Windows.Forms.CheckBox();
+            this.RegCheckBox = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -128,6 +132,15 @@
             this.TokenShowCheckBox.UseVisualStyleBackColor = true;
             this.TokenShowCheckBox.CheckedChanged += new System.EventHandler(this.TokenShowCheckBox_CheckedChanged);
             // 
+            // RegTextBoxEx
+            // 
+            this.RegTextBoxEx.Location = new System.Drawing.Point(243, 90);
+            this.RegTextBoxEx.Name = "RegTextBoxEx";
+            this.RegTextBoxEx.Size = new System.Drawing.Size(149, 19);
+            this.RegTextBoxEx.TabIndex = 22;
+            this.TokenShowToolTip.SetToolTip(this.RegTextBoxEx, "正規表現へのアクセスは($1,$2,...)にて");
+            this.RegTextBoxEx.WatermarkText = "適用する正規表現";
+            // 
             // dataGridView
             // 
             this.dataGridView.AllowUserToAddRows = false;
@@ -140,12 +153,12 @@
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2});
-            this.dataGridView.Location = new System.Drawing.Point(46, 89);
+            this.dataGridView.Location = new System.Drawing.Point(46, 144);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowHeadersVisible = false;
             this.dataGridView.RowTemplate.Height = 21;
             this.dataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dataGridView.Size = new System.Drawing.Size(400, 83);
+            this.dataGridView.Size = new System.Drawing.Size(400, 92);
             this.dataGridView.TabIndex = 8;
             // 
             // Column1
@@ -167,7 +180,7 @@
             // Paramlabel
             // 
             this.Paramlabel.AutoSize = true;
-            this.Paramlabel.Location = new System.Drawing.Point(3, 65);
+            this.Paramlabel.Location = new System.Drawing.Point(3, 122);
             this.Paramlabel.Name = "Paramlabel";
             this.Paramlabel.Size = new System.Drawing.Size(37, 12);
             this.Paramlabel.TabIndex = 9;
@@ -175,7 +188,7 @@
             // 
             // AddListButton
             // 
-            this.AddListButton.Location = new System.Drawing.Point(241, 60);
+            this.AddListButton.Location = new System.Drawing.Point(241, 117);
             this.AddListButton.Name = "AddListButton";
             this.AddListButton.Size = new System.Drawing.Size(65, 23);
             this.AddListButton.TabIndex = 10;
@@ -185,7 +198,7 @@
             // 
             // RemoveListButton
             // 
-            this.RemoveListButton.Location = new System.Drawing.Point(312, 60);
+            this.RemoveListButton.Location = new System.Drawing.Point(312, 117);
             this.RemoveListButton.Name = "RemoveListButton";
             this.RemoveListButton.Size = new System.Drawing.Size(64, 23);
             this.RemoveListButton.TabIndex = 11;
@@ -200,7 +213,7 @@
             "UTF-8",
             "ShiftJIS",
             "EUC-JP"});
-            this.CharCodeComboBox.Location = new System.Drawing.Point(106, 62);
+            this.CharCodeComboBox.Location = new System.Drawing.Point(106, 119);
             this.CharCodeComboBox.Name = "CharCodeComboBox";
             this.CharCodeComboBox.Size = new System.Drawing.Size(120, 20);
             this.CharCodeComboBox.TabIndex = 12;
@@ -208,7 +221,7 @@
             // CharCodeLabel
             // 
             this.CharCodeLabel.AutoSize = true;
-            this.CharCodeLabel.Location = new System.Drawing.Point(44, 65);
+            this.CharCodeLabel.Location = new System.Drawing.Point(44, 122);
             this.CharCodeLabel.Name = "CharCodeLabel";
             this.CharCodeLabel.Size = new System.Drawing.Size(56, 12);
             this.CharCodeLabel.TabIndex = 13;
@@ -216,9 +229,8 @@
             // 
             // ClipboardEnableCheckBox
             // 
-            this.ClipboardEnableCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ClipboardEnableCheckBox.AutoSize = true;
-            this.ClipboardEnableCheckBox.Location = new System.Drawing.Point(46, 178);
+            this.ClipboardEnableCheckBox.Location = new System.Drawing.Point(48, 65);
             this.ClipboardEnableCheckBox.Name = "ClipboardEnableCheckBox";
             this.ClipboardEnableCheckBox.Size = new System.Drawing.Size(217, 16);
             this.ClipboardEnableCheckBox.TabIndex = 14;
@@ -228,8 +240,7 @@
             // 
             // TestRunButton
             // 
-            this.TestRunButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.TestRunButton.Location = new System.Drawing.Point(396, 174);
+            this.TestRunButton.Location = new System.Drawing.Point(398, 88);
             this.TestRunButton.Name = "TestRunButton";
             this.TestRunButton.Size = new System.Drawing.Size(50, 23);
             this.TestRunButton.TabIndex = 15;
@@ -240,7 +251,7 @@
             // StatusLabel
             // 
             this.StatusLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.StatusLabel.Location = new System.Drawing.Point(6, 174);
+            this.StatusLabel.Location = new System.Drawing.Point(6, 213);
             this.StatusLabel.Name = "StatusLabel";
             this.StatusLabel.Size = new System.Drawing.Size(34, 23);
             this.StatusLabel.TabIndex = 16;
@@ -248,7 +259,7 @@
             // 
             // SettingSaveButton
             // 
-            this.SettingSaveButton.Location = new System.Drawing.Point(382, 60);
+            this.SettingSaveButton.Location = new System.Drawing.Point(382, 117);
             this.SettingSaveButton.Name = "SettingSaveButton";
             this.SettingSaveButton.Size = new System.Drawing.Size(64, 23);
             this.SettingSaveButton.TabIndex = 17;
@@ -260,7 +271,7 @@
             // 
             this.ClipEventCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
             this.ClipEventCheckBox.AutoSize = true;
-            this.ClipEventCheckBox.Location = new System.Drawing.Point(281, 174);
+            this.ClipEventCheckBox.Location = new System.Drawing.Point(283, 62);
             this.ClipEventCheckBox.Name = "ClipEventCheckBox";
             this.ClipEventCheckBox.Size = new System.Drawing.Size(109, 22);
             this.ClipEventCheckBox.TabIndex = 18;
@@ -268,21 +279,55 @@
             this.ClipEventCheckBox.UseVisualStyleBackColor = true;
             this.ClipEventCheckBox.CheckedChanged += new System.EventHandler(this.ClipEventCheckBox_CheckedChanged);
             // 
+            // RegCheckBox
+            // 
+            this.RegCheckBox.AutoSize = true;
+            this.RegCheckBox.Location = new System.Drawing.Point(48, 92);
+            this.RegCheckBox.Name = "RegCheckBox";
+            this.RegCheckBox.Size = new System.Drawing.Size(193, 16);
+            this.RegCheckBox.TabIndex = 20;
+            this.RegCheckBox.Text = "クリップボードに正規表現を適用する";
+            this.RegCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 189);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(37, 24);
+            this.label2.TabIndex = 21;
+            this.label2.Text = "HTTP\r\nstatus";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(5, 163);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(35, 23);
+            this.button1.TabIndex = 23;
+            this.button1.Text = "DB";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // vtwas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(454, 201);
-            this.Controls.Add(this.ClipEventCheckBox);
+            this.ClientSize = new System.Drawing.Size(454, 240);
             this.Controls.Add(this.SettingSaveButton);
+            this.Controls.Add(this.CharCodeLabel);
+            this.Controls.Add(this.CharCodeComboBox);
+            this.Controls.Add(this.RemoveListButton);
+            this.Controls.Add(this.AddListButton);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.RegTextBoxEx);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.RegCheckBox);
+            this.Controls.Add(this.ClipEventCheckBox);
             this.Controls.Add(this.StatusLabel);
             this.Controls.Add(this.TestRunButton);
             this.Controls.Add(this.ClipboardEnableCheckBox);
-            this.Controls.Add(this.CharCodeLabel);
-            this.Controls.Add(this.CharCodeComboBox);
             this.Controls.Add(this.dataGridView);
-            this.Controls.Add(this.RemoveListButton);
-            this.Controls.Add(this.AddListButton);
             this.Controls.Add(this.Paramlabel);
             this.Controls.Add(this.TokenShowCheckBox);
             this.Controls.Add(this.TokenPasstextBox);
@@ -329,6 +374,10 @@
         private System.Windows.Forms.Label StatusLabel;
         private System.Windows.Forms.Button SettingSaveButton;
         private System.Windows.Forms.CheckBox ClipEventCheckBox;
+        private System.Windows.Forms.CheckBox RegCheckBox;
+        private System.Windows.Forms.Label label2;
+        private TextBoxEx RegTextBoxEx;
+        private System.Windows.Forms.Button button1;
     }
 }
 
