@@ -22,7 +22,7 @@ namespace vtwas
 
         // ソフト　プロパティ
         static public string AppName = "vtwas";
-        static public string Version = "0.0.1";
+        static public string Version = "0.0.2";
         static public string Author = "Ruth@meto4d";
         static public string GitURL = "https://github.com/meto4d/vtwas";
 
